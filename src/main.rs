@@ -53,12 +53,17 @@ fn write_data(file_path: &str, data_file:&DataFile) {
 #[get("/restaurants")]
 async fn get_restaurants(data: web::Data<AppState>) -> impl Responder {
     let data_file = read_data(&data.data_file.lock().unwrap());
+    
+    println!("Received GET request: /restaurants"); //for basic log
+
     HttpResponse::Ok().json(data_file.restaurants)
 }
 
 #[get("/restaurants/{name}/menu")]
 async fn get_restaurant_menu(data: web::Data<AppState>, name: web::Path<String>) -> impl Responder {
     let data_file = read_data(&data.data_file.lock().unwrap());
+
+    println!("Received GET request: /restaurants/{}/menu", name); //for basic log
 
     if let Some(restaurant) = data_file.restaurants.iter().find(|r| r.name == *name) {
         HttpResponse::Ok().json(&restaurant.menu)
@@ -71,6 +76,8 @@ async fn get_restaurant_menu(data: web::Data<AppState>, name: web::Path<String>)
 async fn get_song_info(data: web::Data<AppState>, name: web::Path<String>) -> impl Responder {
     let data_file = read_data(&data.data_file.lock().unwrap());
 
+    println!("Received GET request: /songs/{}", name); //for basic log
+
     if let Some(song) = data_file.songs.iter().find(|r| r.name == *name) {
         HttpResponse::Ok().json(&song)
     } else {
@@ -81,6 +88,9 @@ async fn get_song_info(data: web::Data<AppState>, name: web::Path<String>) -> im
 #[get("/songs")]
 async fn get_songs(data: web::Data<AppState>) -> impl Responder {
     let data_file = read_data(&data.data_file.lock().unwrap());
+
+    println!("Received GET request: /songs"); //for basic log
+
     HttpResponse::Ok().json(data_file.songs)
 }
 
@@ -90,6 +100,8 @@ async fn get_songs(data: web::Data<AppState>) -> impl Responder {
 async fn main() -> std::io::Result<()> {
     //filepath of the JSON "database"
     let data_file = "data/data.json".to_string();
+
+    println!("Starting server on http://127.0.0.1:8080"); //for basic log
 
     //HTTP server strating
     HttpServer::new(move || {
