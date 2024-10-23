@@ -1,0 +1,123 @@
+{
+  "dishes": [
+    {
+      "title": "Margherita Pizza",
+      "description": "Tomato, Mozzarella, Basil, Olive Oil",
+      "allergens": "Cheese, Olive oil",
+      "image": "dishImages.pizza_margherita",
+      "category": "pizza",
+      "price": 10
+    },
+    {
+      "title": "Four Cheese Pizza",
+      "description": "Tomato, Mozzarella, Gorgonzola, Parmesan, Fontina, Provolone",
+      "allergens": "Cheese",
+      "image": "dishImages.pizza_four_cheese",
+      "category": "pizza",
+      "price": 13
+    },
+    {
+      "title": "Pepperoni Pizza",
+      "description": "Tomato, Mozzarella, Pepperoni, Oregano",
+      "allergens": "Oregano",
+      "image": "dishImages.pizza_pepperoni",
+      "category": "pizza",
+      "price": 15
+    },
+    {
+      "title": "Burrata Pizza",
+      "description": "Tomato, Mozzarella, Burrata, Basil, Olive Oil, Cherry Tomatoes",
+      "allergens": "Cheese, Basil",
+      "image": "dishImages.pizza_burrata",
+      "category": "pizza",
+      "price": 12
+    },
+    {
+      "title": "Parma Pizza",
+      "description": "Tomato, Mozzarella, Parma Ham, Arugula, Parmesan, Olive Oil",
+      "allergens": "Cheese, Olive oil",
+      "image": "dishImages.pizza_parma",
+      "category": "pizza",
+      "price": 18
+    },
+    {
+      "title": "Mortadella Pizza",
+      "description": "Tomato, Mozzarella, Mortadella, Pistachio, Ricotta",
+      "allergens": "Cheese, Pistachio",
+      "image": "dishImages.pizza_mortadella",
+      "category": "pizza",
+      "price": 18
+    },
+    {
+      "title": "Veggie Pizza",
+      "description": "Tomato, Mozzarella, Peppers, Mushrooms, Onions, Zucchini, Eggplant",
+      "allergens": "Cheese, Mushrooms",
+      "image": "dishImages.pizza_veggie",
+      "category": "pizza",
+      "price": 15
+    },
+    {
+      "title": "Seafood Pizza",
+      "description": "Cream, Mozzarella, Salmon, Shrimp, Garlic, Dill",
+      "allergens": "Cheese, Shrimp, Garlic",
+      "image": "dishImages.pizza_seafood",
+      "category": "pizza",
+      "price": 16
+    },
+    {
+      "title": "Pasta Carbonara",
+      "description": "Spaghetti, Eggs, Pancetta, Parmesan, Black Pepper",
+      "allergens": "Cheese, Eggs",
+      "image": "dishImages.pasta_carbonara",
+      "category": "pasta",
+      "price": 9
+    },
+    {
+      "title": "Pasta Manzo",
+      "description": "Pappardelle, Beef Ragu, Red Wine, Parmesan, Rosemary",
+      "allergens": "None",
+      "image": "dishImages.pasta_manzo",
+      "category": "pasta",
+      "price": 12
+    },
+    {
+      "title": "Pasta Mare",
+      "description": "Tagliatelle, Shrimp, Mussels, Garlic, White Wine, Parsley",
+      "allergens": "Shrimp, Garlic",
+      "image": "dishImages.pasta_mare",
+      "category": "pasta",
+      "price": 16
+    },
+    {
+      "title": "Pasta Pollo",
+      "description": "Fusilli, Grilled Chicken, Creamy Alfredo Sauce, Parmesan",
+      "allergens": "None",
+      "image": "dishImages.pasta_pollo",
+      "category": "pasta",
+      "price": 17
+    }
+  ],
+  "bookings": [
+    {
+      "name": "Olivier Michel",
+      "phonePrefix": "+33",
+      "phoneNumber": "123456789",
+      "date": "12/12/2024",
+      "time": "18h"
+    },
+    {
+      "name": "Jean Mathieu",
+      "phonePrefix": "+33",
+      "phoneNumber": "123456789",
+      "date": "13/12/2024",
+      "time": "20h30"
+    },
+    {
+      "name": "Alice Martin",
+      "phonePrefix": "+33",
+      "phoneNumber": "987654321",
+      "date": "14/12/2024",
+      "time": "19h30"
+    }
+  ]
+}
