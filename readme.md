@@ -62,7 +62,10 @@ The JSON file stores two sets of data:
 
 The API endpoints are : 
 - ```GET /dishes``` : Retrieve all available dishes.
+- ```GET /bookings``` : Retrieve all bookings.
 - ```POST /bookings``` : Create a new booking by submitting booking details in JSON format.
+- ```PUT /bookings/{phone_number}``` : Modify the booking identified by the indicated phone number.
+- ```DELETE /bookings/{phone_number}``` : Delete the booking identified by the indicated phone number.
 
 ### Examples :
 #### GET the dishes
@@ -92,6 +95,32 @@ Response :
 ]
 ```
 
+#### GET the bookings
+Request : 
+```
+curl http://127.0.0.1:8080/bookings
+```
+Response : 
+```json
+[
+    {
+        "name": "Olivier Michel",
+        "phonePrefix": "+33",
+        "phoneNumber": "123456789",
+        "date": "12/12/2024",
+        "time": "18h"
+    },
+    {
+        "name": "Jean Mathieu",
+        "phonePrefix": "+33",
+        "phoneNumber": "123456789",
+        "date": "13/12/2024",
+        "time": "20h30"
+    }
+]
+```
+
+
 #### POST a booking
 Request : 
 ```
@@ -108,6 +137,34 @@ curl -X POST http://127.0.0.1:8080/bookings \
 Response from API (data file has been updated): 
 ```
 Booking successfully added
+```
+
+#### PUT on a booking (modify a booking)
+Request (change the name of the reservation (identified by phone_number)) : 
+```
+curl -X PUT http://127.0.0.1:8080/bookings/123456789 \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "Alice Martin",
+    "phonePrefix": "+33",
+    "phoneNumber": "123456789",
+    "date": "15/12/2024",
+    "time": "20h00"
+}'
+```
+Response from API (data file has been updated): 
+```
+Booking successfully updated
+```
+
+#### DELETE a booking
+Request (delete a reservation (identified by phone number)) : 
+```
+curl -X DELETE http://127.0.0.1:8080/bookings/123456789
+```
+Response from API (data file has been updated): 
+```
+Booking successfully deleted
 ```
 
 ## Running the app 

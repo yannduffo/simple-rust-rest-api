@@ -1,4 +1,4 @@
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, post, put, delete, web, App, HttpResponse, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::sync::Mutex;
@@ -60,6 +60,16 @@ async fn get_dishes(data: web::Data<AppState>) -> impl Responder {
     HttpResponse::Ok().json(data_file.dishes)
 }
 
+// GET all bookings
+#[get("/bookings")]
+async fn get_bookings(data: web::Data<AppState>) -> impl Responder {
+    let data_file = read_data(&data.data_file.lock().unwrap());
+
+    println!("Received GET request: /bookings"); //for basic log
+
+    HttpResponse::Ok().json(data_file.bookings)
+}
+
 // POST a new booking
 #[post("/bookings")]
 async fn post_booking(data: web::Data<AppState>, new_booking: web::Json<Booking>) -> impl Responder {
@@ -74,6 +84,58 @@ async fn post_booking(data: web::Data<AppState>, new_booking: web::Json<Booking>
     write_data(&data.data_file.lock().unwrap(), &data_file);
 
     HttpResponse::Ok().body("Booking successfully added")
+}
+
+// PUT to update a booking
+#[put("/bookings/{phoneNumber}")]
+async fn put_booking(
+    data: web::Data<AppState>,
+    phone_number: web::Path<String>,
+    updated_booking: web::Json<Booking>,
+) -> impl Responder {
+    let mut data_file = read_data(&data.data_file.lock().unwrap());
+
+    println!("Received PUT request: /bookings/{phone_number}"); //for basic log
+
+    //find the booking by phoneNumber
+    if let Some(booking) = data_file
+        .bookings
+        .iter_mut()
+        .find(|b| b.phoneNumber == *phone_number)
+    {
+        //update the booking details
+        *booking = updated_booking.into_inner();
+        
+        //save the updated data back to the JSON file
+        write_data(&data.data_file.lock().unwrap(), &data_file);
+        HttpResponse::Ok().body("Booking successfully updated")
+    } else {
+        HttpResponse::NotFound().body("Booking not found")
+    }
+}
+
+// DELETE to remove a booking
+#[delete("/bookings/{phoneNumber}")]
+async fn delete_booking(data: web::Data<AppState>, phone_number: web::Path<String>) -> impl Responder {
+    let mut data_file = read_data(&data.data_file.lock().unwrap());
+
+    println!("Received DELETE request: /bookings/{phone_number}"); //for basic log
+
+    //find the index of the booking by phoneNumber
+    if let Some(index) = data_file
+        .bookings
+        .iter()
+        .position(|b| b.phoneNumber == *phone_number)
+    {
+        //remove the booking at the found index
+        data_file.bookings.remove(index);
+        
+        //save the updated data back to the JSON file
+        write_data(&data.data_file.lock().unwrap(), &data_file);
+        HttpResponse::Ok().body("Booking successfully deleted")
+    } else {
+        HttpResponse::NotFound().body("Booking not found")
+    }
 }
 
 //-------------------------------------------------------- main -----------------------------------------------------------------
@@ -92,7 +154,10 @@ async fn main() -> std::io::Result<()> {
                 data_file: Mutex::new(data_file.clone()),
             }))
             .service(get_dishes)    //GET /dishes
+            .service(get_bookings)  //GET /bookings
             .service(post_booking)  //POST /bookings
+            .service(put_booking)   // PUT /bookings/{phoneNumber}
+            .service(delete_booking) // DELETE /bookings/{phoneNumber}
     })
     .bind("127.0.0.1:8080")?
     .run()
