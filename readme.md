@@ -1,4 +1,4 @@
-Last update 07/11/2024 - Assignment6.2
+Last update 07/11/2024 11:16 - Assignment6.2
 
 # Simple Rust REST API
 
